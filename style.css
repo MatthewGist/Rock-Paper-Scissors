@@ -1,0 +1,49 @@
+body
+{
+	text-align: center;
+}
+
+body > div
+{
+	margin-top: 2em;
+}
+
+body > div:first-child
+{
+	margin-top: 0;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+body > div > div
+{
+	display: inline-block;
+	margin-right: 1em;
+}
+
+body div.indicator
+{
+	font-weight: bold;
+}
+
+body div.button
+{
+	border: 2px solid black;
+	padding: 2px;
+	cursor: pointer;
+}
+
+body div.play
+{
+	display: inline-block;
+	border: 1px solid black;
+	width: 12em;
+	height: 12em;
+	margin-right: 2em;
+}
+
+body input
+{
+	width: 2em;
+	margin-right: 1em;
+}
