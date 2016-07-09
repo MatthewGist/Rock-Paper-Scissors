@@ -85,6 +85,59 @@ function RestartTimer()
 	$("#wins, #losses, #draws").val("0");
 }
 
+function Play(choice)
+{
+	// Render the player's indicate choice
+	switch(choice)
+	{
+		case 0:
+			$("#player").html("Rock");
+			break;
+		case 1:
+			$("#player").html("Paper");
+			break;
+		case 2:
+			$("#player").html("Scissors");
+			break;
+		default:
+			break;
+	}
+	
+	// Determine the opponent's random choice and the resulting outcome
+	switch(Math.round(Math.random() * 2))
+	{
+		case 0:
+			$("#opponent").html("Rock");
+			if (choice == 0)
+				$("#draws").val(parseInt($("#draws").val()) + 1);
+			else if (choice == 1)
+				$("#wins").val(parseInt($("#wins").val()) + 1);
+			else
+				$("#losses").val(parseInt($("#losses").val()) + 1);
+			break;
+		case 1:
+			$("#opponent").html("Paper");
+			if (choice == 0)
+				$("#losses").val(parseInt($("#losses").val()) + 1);
+			else if (choice == 1)
+				$("#draws").val(parseInt($("#draws").val()) + 1);
+			else
+				$("#wins").val(parseInt($("#wins").val()) + 1);
+			break;
+		case 2:
+			$("#opponent").html("Scissors");
+			if (choice == 0)
+				$("#wins").val(parseInt($("#wins").val()) + 1);
+			else if (choice == 1)
+				$("#losses").val(parseInt($("#losses").val()) + 1);
+			else
+				$("#draws").val(parseInt($("#draws").val()) + 1);
+			break;
+		default:
+			break;
+	}
+}
+
 $(document).ready(
 	function()
 	{
@@ -95,6 +148,9 @@ $(document).ready(
 		// Bind button click events to their respective functions
 		$("#start").click(StartTimer);
 		$("#restart").click(RestartTimer);
+		$("#rock").click(function () {Play(0);});
+		$("#paper").click(function () {Play(1);});
+		$("#scissors").click(function () {Play(2);});
 		
 		// Place focus on timer input
 		$("#minutes").focus();

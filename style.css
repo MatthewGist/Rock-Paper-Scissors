@@ -45,13 +45,14 @@ body div.button
 	cursor: pointer;
 }
 
-body div.play
+body div#player, body div#opponent
 {
 	display: inline-block;
 	border: 1px solid black;
 	width: 12em;
 	height: 12em;
 	margin-right: 2em;
+	vertical-align: text-top;
 }
 
 body input
