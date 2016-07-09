@@ -5,20 +5,32 @@ body
 
 body > div
 {
-	margin-top: 2em;
+	margin-top: 1.6em;
 }
 
 body > div:first-child
 {
-	margin-top: 0;
+	margin: .4em;
 	font-size: 2em;
 	font-weight: bold;
+}
+
+body > div:nth-child(3)
+{
+	margin-top: .8em;
 }
 
 body > div > div
 {
 	display: inline-block;
 	margin-right: 1em;
+}
+
+body div#feedback
+{
+	margin: 0;
+	font-style: italic;
+	color: red;
 }
 
 body div.indicator
@@ -44,6 +56,6 @@ body div.play
 
 body input
 {
-	width: 2em;
+	width: 4em;
 	margin-right: 1em;
 }
