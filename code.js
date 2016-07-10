@@ -17,11 +17,16 @@ function Countdown()
 	if (($("#minutes").val() == "0" || $("#minutes").val() == "") && parseInt($("#seconds").val()) == 10)
 		$("#feedback").html("Warning! You have ten seconds or less remaining in the game!");
 	
-	// If time has expired, cancel the countdown functionality, indicate expiration, and disable gameplay
+	// If time has expired, cancel the countdown functionality, indicate expiration and overall result, and disable gameplay
 	if (($("#minutes").val() == "0" || $("#minutes").val() == "") && $("#seconds").val() == "0")
 	{
 		clearInterval(counter);
 		$("#feedback").html("Time has expired. Game over.");
+		$("#minutes").parent().hide();
+		$("#seconds").parent().hide();
+		$("#seconds").parent().parent().children().first().hide();
+		$("#player").parent().hide();
+		$("#rock").parent().hide();
 	}
 }
 
@@ -42,7 +47,7 @@ function StartTimer()
 	}
 	
 	// Ensure input has been provided for the game clock prior to beginning.
-	if ($("#minutes").val() == "0" && $("#seconds").val() == "0")
+	if ($("#minutes").val() == "0" && $("#seconds").val() == "00")
 	{
 		$("#feedback").html("Please enter a desired game duration before starting.");
 		$("#minutes").val("");
@@ -63,6 +68,11 @@ function StartTimer()
 		minutes = $("#minutes").val();
 		seconds = $("#seconds").val();
 		
+		// Reveal game playing and score tracking elements
+		$("#player").parent().show();
+		$("#rock").parent().show();
+		$("#wins").parent().parent().show();
+		
 		// Initiate countdown each second to facilitate game clock
 		counter = setInterval(Countdown, 1000);
 	}
@@ -76,6 +86,13 @@ function RestartTimer()
 	// Reinitialize game clock to initial input
 	$("#minutes").val(minutes);
 	$("#seconds").val(seconds);
+	
+	// Reveal game playing and score tracking elements
+	$("#minutes").parent().show();
+	$("#seconds").parent().show();
+	$("#seconds").parent().parent().children().first().show();
+	$("#player").parent().show();
+	$("#rock").parent().show();
 	
 	// Cancel timer and reinitiate the countdown functionality
 	clearInterval(counter);
@@ -141,16 +158,19 @@ function Play(choice)
 $(document).ready(
 	function()
 	{
-		// Set the proper initial visibility and values of certain elements
+		// Set the proper initial visibility and default values of certain elements
 		$("#restart").hide();
+		$("#player").parent().hide();
+		$("#rock").parent().hide();
+		$("#wins").parent().parent().hide();
 		$("#wins, #losses, #draws").val("0");
 		
 		// Bind button click events to their respective functions
 		$("#start").click(StartTimer);
 		$("#restart").click(RestartTimer);
-		$("#rock").click(function () {Play(0);});
-		$("#paper").click(function () {Play(1);});
-		$("#scissors").click(function () {Play(2);});
+		$("#rock").click(function() {Play(0);});
+		$("#paper").click(function() {Play(1);});
+		$("#scissors").click(function() {Play(2);});
 		
 		// Place focus on timer input
 		$("#minutes").focus();
