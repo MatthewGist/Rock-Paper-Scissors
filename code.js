@@ -20,23 +20,36 @@ function Countdown()
 	// If time has expired, cancel the countdown functionality, indicate expiration and overall result, and disable gameplay
 	if (($("#minutes").val() == "0" || $("#minutes").val() == "") && $("#seconds").val() == "0")
 	{
+		// Cancel the countdown functionality
 		clearInterval(counter);
-		$("#feedback").html("Time has expired. Game over.");
+		
+		// Indicate expiration and overall result
+		if (parseInt($("#wins").val()) == parseInt($("#losses").val()))
+			$("#feedback").html("Time has expired. You drew with your opponent.");
+		else if (parseInt($("#wins").val()) > parseInt($("#losses").val()))
+			$("#feedback").html("Time has expired. You won!");
+		else
+			$("#feedback").html("Time has expired. You lost.");
+		
+		// Disable gameplay
 		$("#minutes").parent().hide();
 		$("#seconds").parent().hide();
 		$("#seconds").parent().parent().children().first().hide();
 		$("#player").parent().hide();
 		$("#rock").parent().hide();
+		
+		// Allow for the game clock to be reset
+		$("#reset").show();
 	}
 }
 
 function StartTimer()
 {
 	// Set blank input values to zero
-	if ($("#minutes").val() == "")
+	if ($("#minutes").val() == ""  || parseInt($("#minutes").val()) < 0)
 		$("#minutes").val("0");
 	
-	if ($("#seconds").val() == "")
+	if ($("#seconds").val() == "" || parseInt($("#seconds").val()) < 0)
 		$("#seconds").val("00");
 	
 	// Split time if seconds value exceeds 59
@@ -56,13 +69,16 @@ function StartTimer()
 	}
 	else
 	{
-		// Clear feedback text
-		$("#feedback").html("&nbsp;");
+		// Initialize feedback value
+		if (($("#minutes").val() == "0" || $("#minutes").val() == "") && parseInt($("#seconds").val()) <= 10)
+			$("#feedback").html("Warning! You have ten seconds or less remaining in the game!");
+		else
+			$("#feedback").html("&nbsp;");
 		
 		// Initialize the visability and editability of timer related functionality
 		$("#start").hide();
 		$("#restart").show();
-		$("#minutes, #seconds").attr("disabled", "true");
+		$("#minutes, #seconds").prop("disabled", true);
 		
 		// Store desired game time to facilitate clock restart functionality
 		minutes = $("#minutes").val();
@@ -83,6 +99,9 @@ function RestartTimer()
 	// Reinitialize feedback mechanism to blank state
 	$("#feedback").html("&nbsp;");
 	
+	// Hide reset functionality
+	$("#reset").hide();
+	
 	// Reinitialize game clock to initial input
 	$("#minutes").val(minutes);
 	$("#seconds").val(seconds);
@@ -94,12 +113,38 @@ function RestartTimer()
 	$("#player").parent().show();
 	$("#rock").parent().show();
 	
+	// Reinitialize score values to zero
+	$("#wins, #losses, #draws").val("0");
+	
 	// Cancel timer and reinitiate the countdown functionality
 	clearInterval(counter);
 	counter = setInterval(Countdown, 1000);
+}
+
+function ResetTimer()
+{
+	// Reinitialize feedback mechanism
+	$("#feedback").html("&nbsp;");
 	
-	// Reinitialize score values to zero
+	// Reinitialize score values to zero and hide them
 	$("#wins, #losses, #draws").val("0");
+	$("#wins").parent().parent().hide();
+	
+	// Reinitialize the game clock and make it visible and editable
+	$("#minutes").val("");
+	$("#seconds").val("");
+	$("#minutes, #seconds").prop("disabled", false);
+	$("#minutes").parent().show();
+	$("#seconds").parent().show();
+	$("#seconds").parent().parent().children().first().show();
+	
+	// Make the start button the only available option
+	$("#start").show();
+	$("#restart").hide();
+	$("#reset").hide();
+	
+	// Place focus on timer input
+	$("#minutes").focus();
 }
 
 function Play(choice)
@@ -160,6 +205,7 @@ $(document).ready(
 	{
 		// Set the proper initial visibility and default values of certain elements
 		$("#restart").hide();
+		$("#reset").hide();
 		$("#player").parent().hide();
 		$("#rock").parent().hide();
 		$("#wins").parent().parent().hide();
@@ -168,6 +214,7 @@ $(document).ready(
 		// Bind button click events to their respective functions
 		$("#start").click(StartTimer);
 		$("#restart").click(RestartTimer);
+		$("#reset").click(ResetTimer);
 		$("#rock").click(function() {Play(0);});
 		$("#paper").click(function() {Play(1);});
 		$("#scissors").click(function() {Play(2);});
