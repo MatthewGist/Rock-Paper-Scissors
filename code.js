@@ -60,7 +60,7 @@ function StartTimer()
 	}
 	
 	// Ensure input has been provided for the game clock prior to beginning.
-	if ($("#minutes").val() == "0" && $("#seconds").val() == "00")
+	if ($("#minutes").val() == "0" && ($("#seconds").val() == "00" || $("#seconds").val() == "0"))
 	{
 		$("#feedback").html("Please enter a desired game duration before starting.");
 		$("#minutes").val("");
@@ -96,15 +96,18 @@ function StartTimer()
 
 function RestartTimer()
 {
-	// Reinitialize feedback mechanism to blank state
-	$("#feedback").html("&nbsp;");
-	
-	// Hide reset functionality
-	$("#reset").hide();
-	
 	// Reinitialize game clock to initial input
 	$("#minutes").val(minutes);
 	$("#seconds").val(seconds);
+	
+	// Initialize feedback value
+	if (($("#minutes").val() == "0" || $("#minutes").val() == "") && parseInt($("#seconds").val()) <= 10)
+		$("#feedback").html("Warning! You have ten seconds or less remaining in the game!");
+	else
+		$("#feedback").html("&nbsp;");
+	
+	// Hide reset functionality
+	$("#reset").hide();
 	
 	// Clear final play of the previous game
 	$("#player, #opponent").html("");
