@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Rock-Paper-Scissors</title>
+		<link rel="icon" type="image/png" href="icon.png" />
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>	
 		<script type="text/javascript" src="code.js"></script>
@@ -12,17 +13,25 @@
 		<div id="feedback">&nbsp;</div>
 		
 		<div>
-			<div class="indicator">Game Duration:</div>
-			<div><input type="number" id="minutes" />Minutes</div>
-			<div><input type="number" id="seconds" />Seconds</div>
+			<div>
+				<div class="indicator">Game Duration:</div>
+				<div><input type="number" id="minutes" />Minutes</div>
+				<div><input type="number" id="seconds" />Seconds</div>
+			</div>
 			<div class="button" id="start">Start</div>
 			<div class="button" id="restart">Restart</div>
 			<div class="button" id="reset">Reset</div>
 		</div>
 		
 		<div>
-			<div id="player"></div>
-			<div id="opponent"></div>
+			<div>
+				<div class="indicator">Player:</div>
+				<div id="player"></div>
+			</div>
+			<div>
+				<div class="indicator">Opponent:</div>
+				<div id="opponent"></div>
+			</div>
 		</div>
 		
 		<div>

@@ -35,7 +35,7 @@ function Countdown()
 		$("#minutes").parent().hide();
 		$("#seconds").parent().hide();
 		$("#seconds").parent().parent().children().first().hide();
-		$("#player").parent().hide();
+		$("#player").parent().parent().hide();
 		$("#rock").parent().hide();
 		
 		// Allow for the game clock to be reset
@@ -85,7 +85,7 @@ function StartTimer()
 		seconds = $("#seconds").val();
 		
 		// Reveal game playing and score tracking elements
-		$("#player").parent().show();
+		$("#player").parent().parent().show();
 		$("#rock").parent().show();
 		$("#wins").parent().parent().show();
 		
@@ -106,11 +106,14 @@ function RestartTimer()
 	$("#minutes").val(minutes);
 	$("#seconds").val(seconds);
 	
+	// Clear final play of the previous game
+	$("#player, #opponent").html("");
+	
 	// Reveal game playing and score tracking elements
 	$("#minutes").parent().show();
 	$("#seconds").parent().show();
 	$("#seconds").parent().parent().children().first().show();
-	$("#player").parent().show();
+	$("#player").parent().parent().show();
 	$("#rock").parent().show();
 	
 	// Reinitialize score values to zero
@@ -126,10 +129,6 @@ function ResetTimer()
 	// Reinitialize feedback mechanism
 	$("#feedback").html("&nbsp;");
 	
-	// Reinitialize score values to zero and hide them
-	$("#wins, #losses, #draws").val("0");
-	$("#wins").parent().parent().hide();
-	
 	// Reinitialize the game clock and make it visible and editable
 	$("#minutes").val("");
 	$("#seconds").val("");
@@ -143,6 +142,13 @@ function ResetTimer()
 	$("#restart").hide();
 	$("#reset").hide();
 	
+	// Clear final play of the previous game
+	$("#player, #opponent").html("");
+	
+	// Reinitialize score values to zero and hide them
+	$("#wins, #losses, #draws").val("0");
+	$("#wins").parent().parent().hide();
+	
 	// Place focus on timer input
 	$("#minutes").focus();
 }
@@ -153,13 +159,13 @@ function Play(choice)
 	switch(choice)
 	{
 		case 0:
-			$("#player").html("Rock");
+			$("#player").html("<img src='rock.png' /><div>Rock</div>");
 			break;
 		case 1:
-			$("#player").html("Paper");
+			$("#player").html("<img src='paper.png' /><div>Paper</div>");
 			break;
 		case 2:
-			$("#player").html("Scissors");
+			$("#player").html("<img src='scissors.png' /><div>Scissors</div>");
 			break;
 		default:
 			break;
@@ -169,7 +175,7 @@ function Play(choice)
 	switch(Math.round(Math.random() * 2))
 	{
 		case 0:
-			$("#opponent").html("Rock");
+			$("#opponent").html("<img src='rock.png' /><div>Rock</div>");
 			if (choice == 0)
 				$("#draws").val(parseInt($("#draws").val()) + 1);
 			else if (choice == 1)
@@ -178,7 +184,7 @@ function Play(choice)
 				$("#losses").val(parseInt($("#losses").val()) + 1);
 			break;
 		case 1:
-			$("#opponent").html("Paper");
+			$("#opponent").html("<img src='paper.png' /><div>Paper</div>");
 			if (choice == 0)
 				$("#losses").val(parseInt($("#losses").val()) + 1);
 			else if (choice == 1)
@@ -187,7 +193,7 @@ function Play(choice)
 				$("#wins").val(parseInt($("#wins").val()) + 1);
 			break;
 		case 2:
-			$("#opponent").html("Scissors");
+			$("#opponent").html("<img src='scissors.png' /><div>Scissors</div>");
 			if (choice == 0)
 				$("#wins").val(parseInt($("#wins").val()) + 1);
 			else if (choice == 1)
@@ -206,7 +212,7 @@ $(document).ready(
 		// Set the proper initial visibility and default values of certain elements
 		$("#restart").hide();
 		$("#reset").hide();
-		$("#player").parent().hide();
+		$("#player").parent().parent().hide();
 		$("#rock").parent().hide();
 		$("#wins").parent().parent().hide();
 		$("#wins, #losses, #draws").val("0");

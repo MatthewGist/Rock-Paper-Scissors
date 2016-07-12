@@ -20,7 +20,7 @@ body > div:nth-child(3)
 	margin-top: .8em;
 }
 
-body > div > div
+body > div > div, body > div > div > div
 {
 	display: inline-block;
 	margin-right: 1em;
@@ -35,7 +35,10 @@ body div#feedback
 
 body div.indicator
 {
+	display: block;
+	text-align: left;
 	font-weight: bold;
+	margin-bottom: .8em;
 }
 
 body div.button
@@ -51,8 +54,19 @@ body div#player, body div#opponent
 	border: 1px solid black;
 	width: 12em;
 	height: 12em;
-	margin-right: 2em;
+	margin-right: 1em;
 	vertical-align: text-top;
+}
+
+body div#player img, body div#opponent img
+{
+	width: 80%;
+	height: 80%;
+}
+
+body div#opponent img
+{
+	transform: rotateY(180deg);
 }
 
 body input
